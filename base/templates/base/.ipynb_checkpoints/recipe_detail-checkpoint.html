@@ -1,6 +1,8 @@
 {% extends 'main.html' %}
 
 {% block content %}
+<a href = "{{request.META.HTTP_REFERER}}">Go back</a>
+<a href = "{% url 'list-recipe' %}">Go to the list</a>
 <h1>{{recipe.name}}</h1>
 <style> 
     .detail-container{
