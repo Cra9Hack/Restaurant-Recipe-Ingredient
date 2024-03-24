@@ -1,0 +1,63 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<style> 
+    .home-container{
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+    }
+</style>
+
+<div class="home-container">
+
+  
+    <div>
+        <a href = "{% url 'create-recipe' %}">Add New Recipe</a>
+        <h3>Filter by restaurant</h3>
+                <div>
+                    <a href="{%url 'list-recipe' %}">All</a>
+                </div>
+<!--         FILTER FOR RESTAURANTS - LIST OF ALL RESTAURANTS-->
+            {% for restaurant in restaurants%}
+                <div>
+                    <a href="{%url 'list-recipe' %}?q={{restaurant.name}}">{{restaurant.name}}</a>
+                </div>
+            {% endfor %}
+    </div>
+
+    
+    <div>
+        <h4>{%if q %} 
+        Recipes served by the Restaurant: {{q}}
+        {%elif p %} 
+        Recipes that include {{p}}
+        {%else%}
+        All recipes
+        {%endif%}</h4>
+        <div>
+<!--             MAIN LIST OF THE RECIPES -->
+            {%for recipe in recipes%}
+            <div>
+                <h5> <a href="{% url 'detail-recipe' recipe.id %}">{{recipe.name}}</a></h5>
+                <a href="{% url 'update-recipe' recipe.id %}">Edit</a>
+                <a href="{% url 'delete-recipe' recipe.id %}">Delete</a>
+            </div>
+            <hr>
+            {% endfor %}
+        </div>
+    </div>
+    <div>
+        <h3>Filter by Ingredient</h3>
+                <div>
+                    <a href="{%url 'list-recipe' %}">All</a>
+                </div>
+<!--         FILTER FOR INGREDIENTS - LIST OF ALL INGREDIENTS-->
+            {% for ingredient in ingredients%}
+                <div>
+                    <a href="{%url 'list-recipe' %}?p={{ingredient.name}}">{{ingredient.name}}</a>
+                </div>
+            {% endfor %}
+    </div>
+</div>        
+{% endblock content %}

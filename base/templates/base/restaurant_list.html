@@ -1,0 +1,45 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<style> 
+    .home-container{
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+    }
+</style>
+<div class="home-container">
+    <div>
+        <a href = "{% url 'create-restaurant' %}">Add New Restaurant</a>
+        <h3>Filter by recipe</h3>
+                <div>
+                    <a href="{%url 'list-restaurant' %}">All</a>
+                </div>
+            {% for recipe in recipes%}
+                <div>
+                    <a href="{%url 'list-restaurant' %}?q={{recipe.name}}">{{recipe.name}}</a>
+                </div>
+            {% endfor %}
+    </div>
+
+    
+    <div>
+       <h4> {% if q %}
+        Restaurants that serve {{q}}
+        {%else %}
+        All Restaurants
+        {%endif%}</h4>
+        <div>
+            {%for restau in restaurants%}
+            <div>
+
+                <h5> <a href="{% url 'detail-restaurant' restau.id %}">{{restau.name}}</a></h5>
+                <a href="{% url 'update-restaurant' restau.id %}">Edit</a>
+                <a href="{% url 'delete-restaurant' restau.id %}">Delete</a>
+            </div>
+            <hr>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>        
+{% endblock content %}
