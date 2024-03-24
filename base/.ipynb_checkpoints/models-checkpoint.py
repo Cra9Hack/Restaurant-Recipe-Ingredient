@@ -28,8 +28,8 @@ class Recipe(models.Model):
         updated,createdand - timestamps
     """
     name = models.CharField(max_length = 200)
-    ingredients = models.ManyToManyField(Ingredient)
     description = models.TextField(null=True , blank = True)
+    ingredients = models.ManyToManyField(Ingredient)
     updated = models.DateTimeField(auto_now = True)#takes a snapshot every time it's saved
     created = models.DateTimeField(auto_now_add = True)#takes a snapshot only the first time it's save
         
